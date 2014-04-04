@@ -1,6 +1,9 @@
 from string import whitespace
 import json
 
+# From https://gist.github.com/pib/240957
+# with adjustments to handle [0 1 2] (a . b) and (1bar ...)
+
 atom_end = set('()[]"\'') | set(whitespace)
 
 def parse(sexp):
@@ -54,7 +57,7 @@ for i in ["melpa", "gnu-elpa", "marmalade", "orgmode"]:
     data += parse(open(i).read())[0][1:]
 
 core = set(["erc", "emacs", "sql", "thingatpt", "gnus", "ede", "semantic", "cl", "ido", "timeclock", "cl-lib", "eieio", "json",
-    # these are dodgy
+    # These are some very commonly used libraries
     #"dash", "s", "f", "helm", "auto-complete", "org", "popup", "evil"
     ])
 
@@ -63,6 +66,11 @@ name = None
 
 def lookup(m,i):
     if i not in m:
+        if flag:
+            # Indicates that we've found a dependency on
+            # a library which didn't show up in any of our repositories;
+            # and the library isn't in the core set
+            pass
         nodes.append({"name": i})
         nodemap[i] = len(nodemap)
     return m[i]
@@ -75,6 +83,7 @@ for i in data:
 flag = True
 
 for i in data:
+    # print i
     name = i[0]
     if name in core: continue
     namei = lookup(nodemap,name)
