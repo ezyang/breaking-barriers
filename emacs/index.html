@@ -4,7 +4,7 @@
 
 .node {
   stroke: #fff;
-  stroke-width: 1.5px;
+  /*stroke-width: 1.5px;*/
   fill: #000;
 }
 
@@ -19,15 +19,15 @@
 <script>
 
 var width = 960,
-    height = 600;
+    height = 960;
 
 var color = d3.scale.category20();
 
-var scale = 0.5;
+var scale = 0.3;
 var force = d3.layout.force()
     .charge(-120*scale)
-    .linkDistance(30*scale)
-    .gravity(0.2)
+    .linkDistance(20*scale)
+    .gravity(0.3)
     .size([width, height]);
 
 var svg = d3.select("body").append("svg")
@@ -44,7 +44,7 @@ d3.json("emacs.json", function(error, graph) {
       .data(graph.links)
     .enter().append("line")
       .attr("class", "link")
-      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+      .style("stroke-width", 1);
 
   var node = svg.selectAll(".node")
       .data(graph.nodes)
