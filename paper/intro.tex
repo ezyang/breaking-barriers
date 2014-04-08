@@ -1,0 +1,45 @@
+\section{Introduction}\label{sec:intro}
+
+In the past decade, there have been two converging trends in the design
+of programming languages. The first trend is the relaxation of
+information hiding mechanisms in languages: if we look at
+object-oriented languages as an example, recent languages rarely enforce
+property accessibility at the object level; instead, the acceptable
+boundaries have increased to encompass modules or entire libraries. For
+example, the Go programming language only enforces the public/private
+distinction at the   package level, by controlling whether or not
+symbols are exported. (Well, while this is true, it belies the fact that
+Go is very strict about its exportability; it doesn't let you hack
+around it using reflection.)
+
+Definition of abstraction/encapsulation/information hiding (what are we talking about?)
+	Enforces type safety, encapsulation, invariants
+
+Sometimes, you want to violate abstraction:
+	In a debugger (Why is something happening?)
+	You want to change the behavior of a third-party library, without patching/forking it
+	You need some extra performance, which can only be achieved by taking advantage of some specifics of the implementation of a library
+	``Law of Leaky Abstractions''
+
+This has been long recognized, in lots of different settings: software engineering, operating systems, programming languages, databases. The result is that there usually is a way to ``get what you want'' in real languages
+However, sometimes, it is critical that abstraction is not violated, usually when security is concerned
+	Running untrusted code, abstraction enforces security
+	A compiler/runtime relies on abstraction being enforced in a very intricate way (e.g. very aggressive optimizations), and it's completely unreasonable for the programmer to be able to “guess” what behavior is going to occur
+
+This is a relatively new development: everyone likes it when software runs faster, but people pay less attention when the abstraction violation leads to a security problems
+
+PL theorists have mostly advocated to take the straight and narrow road, but this is not really tenable in reality [1]. On the other hand, taking the straight and narrow road is required if you want to give security guarantees.
+
+The purpose of this paper is to look at this problem from a programming languages perspective
+
+Argument: PL theory has already developed the conceptual framework for addressing these problems
+
+Another angle: what features in a programming language do you need to have to internalize a debugger?
+	Continuations
+	But breakpoints? Need to have alternate behavior at “all steps” (that's expensive)
+
+Angle: Take things people are doing, and then recast them in terms of the PL things that are going on
+
+Angle: Abstraction is not binary
+
+Angle: Design languages which accommodate existing social structures (organization into libraries, separate stakeholders, etc)

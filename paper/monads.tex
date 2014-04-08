@@ -1,0 +1,9 @@
+\section{Monads, separation and effects}\label{sec:monads}
+
+In Haskell, monads are used to separate effectful code from non-effectful code
+Used in other settings too: in dependently typed languages, a monad can be used to separate partial programs from total programs (e.g. mtac)
+
+Well known problem with monads in Haskell: if you have some pure code, which you now want to add effects to, you have to rewrite all your code in monadic style.
+	DDC tries to address the version of this problem concerning writing code for mutable/immutable versions of a data structure. Introduce ``mutability polymorphism'', i.e. instead of IORef Int and Int, we have Int r (where r is the set of locations the object may lie)
+
+	Monads

@@ -1,0 +1,17 @@
+\section{Compiler correctness and gradual types}\label{sec:compiler}
+
+Compilation from high-level semantics to low-level semantics
+
+This is a classic topic which has received quite a bit of attention in the PL world, c.f. compiler correctness, FFI interoperability, and gradual typing
+
+Schema: High level source language (abstraction barrier) Low level target language
+
+Existing: Violate abstraction barrier by providing an FFI interface, for loading code compiled in the target language (actually, FFI tends not to expose the IR, but you could imagine the ability to directly load inside IR).
+
+Characteristic of low-level language: untyped, encapsulation and invariants are not enforced
+
+One approach: Typed assembly language, which brings static types to the low-level language, so that we can preserve guarantees (e.g. information-hiding from closures is preserved with an existential type constructor).
+
+Another approach: Gradual typing, instead of preserving the invariant globally, maintain the invariants for statically typed code, allow them to be broken (type safety) in dynamically typed code, and use dynamically enforced contracts to ensure that statically typed programs can't ``go wrong''
+
+OK, so what does this mean for normal programmers? Let's set up an analogy. The tower of intermediate languages now corresponds to the tower of abstractions presented to the user (alternately, library as a DSL). Normal clients of the library are writing code in the source language. Now, suppose I want to test some low-level feature of the language. I can either write on the top-level interface, trying to indirectly jiggle the part of the low-level API. Or I can break the abstraction barrier and directly interface with the low-level. That's like making an FFI call to the low-level language; or perhaps forgoing the high-level language entirely and working only in terms of the more ``internal'' API. Use of the internal API gives no guarantees that any implicit high-level invariants are respected. Then the TAL approach says, ``Well, maybe we can create a static type system which is strong enough to ensure that the use of the low-level API fulfills some sort of invariant'' whereas the gradual typing approach says, ``We can insert dynamic contracts (e.g. asserts) to ensure that when we transition to high-level code, the invariants they need fulfilled are good.''

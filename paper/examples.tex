@@ -1,0 +1,15 @@
+\section{Examples}\label{sec:examples}
+
+	Flag to override private modifier in C++
+	Reflection in Java can be used to extract/edit values of private properties (security manager is responsible for disallowing such uses of reflection) (word on the street is that setAccessible is the ``only thing'' you have to turn off)
+	Privacy in Python is completely optional and not enforced. (``Do not make the compiler/parser enforce privacy since developers who want to access private members have ways to do so anyway.'')
+	Haskell libraries often have C preprocessor, to vary across versions (when an API changes is similar to the situation which occurs when an internal implementation detail you were relying on changes). So even with perfect encapsulation, if you accept APIs change, you have to deal with this!
+	Firefox/Chrome IDL for defining interfaces; you can declare some “chrome-only” (available only to trusted code). Similar situation for interplay between JavaScript of extensions and sites: a malicious site can hijack a buggy extension's JavaScript, so a boundary here is important
+	Linux syscall interface. The syscall interface is ostensibly an abstraction boundary, but it is constantly expanding in size, because developers demand fine-grained control from the kernel (consider the ioctl command). However, when the syscall API is extremely huge, it's hard to ensure it's secure; for example, the ptrace syscall was restricted in order to make Linux malware harder to write
+	Modern programming languages have moved away from per-class access modifiers, moving them to operate at a library or module level
+	Haskell compiler pragmas: some offer the ability to access internal identifiers (such as MagicHash); so use of the pragma indicates you are willing to use internal implementation details
+	Mazieres: Emacs as an example of a large system, without encapsulation, which works well. ``UNIX Emacs: A Retrospective'' fingers some particular features: actually, Emacs lisp is quite abstract with respect to its core data structures, the text buffer, word, save states. With simple operations on them which reflect normal Emacs use (if you can do it interactively, you can script it as well). Empirical question: Emacs plugin dependency (answer: lots of emacs plugins have no dependencies, but there is a central tangle of a number of plugins, and the chains can be pretty big)
+	Mazieres: LaTeX has an internal implementation of floating point because there was not a way to access native floating point support in the hardware
+	Mazieres: Databases and btrees; SQL is an example where the underyling data structures are abstracted away, but otherwise, there is no encapsulation (the SQL language coincides with the system administration language)
+	Log-based file system: if I'm building a data structure whose form of persistence is a log, I shouldn't have to log again in the filesystem.
+	Deian: Rethink the sync, the IDs that I get should be usable in the app, even if not modifiable
